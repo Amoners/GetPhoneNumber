@@ -4,6 +4,7 @@ import os
 import sys
 
 def download_files(number_prefix, filename):
+    #Download web page from 51hao.cc
     wget_cmd = " wget http://www.51hao.cc/mobile/hangzhou_" + number_prefix + ".html"
     os.system(wget_cmd)
     convert_cmd = "iconv -f cp936 -t utf-8 hangzhou_" + number_prefix + ".html > " + filename
@@ -11,6 +12,7 @@ def download_files(number_prefix, filename):
     
     
 def get_phone_prefix():
+    #get phone prefix, download file from 51hao.cc
     pattern_mob_list = re.compile('135\d{4}')
     f = open("./utf_8_a")
     result = pattern_mob_list.findall(f.read())
@@ -18,6 +20,7 @@ def get_phone_prefix():
     return result
 
 def get_phone(number_prefix, filename):
+    #get phone number from download file
     match_string = number_prefix + "\d{4}"
     print(match_string)
     print(">>>>>")
@@ -29,7 +32,7 @@ def get_phone(number_prefix, filename):
     
 
 if __name__ == "__main__":
-    #phone_list = get_phone_prefix()
+    #specied phone prefix in command line to download
     if len(sys.argv) < 2:
         print("ERROR: Please specify number in command")
         exit()
@@ -42,7 +45,9 @@ if __name__ == "__main__":
     with open(new_file,'w') as f:
         for number in phone_number:
             f.write(number + "\n")
+    #if you specied list of phone prefix then use below method
     """
+    phone_list = get_phone_prefix()
     for number_prefix in phone_list:
         filename = "utf_8_" + number_prefix
         download_files(number_prefix, filename)
