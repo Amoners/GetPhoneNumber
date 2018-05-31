@@ -1,2 +1,2 @@
 # GetPhoneNumber
-Get phone number fron website
+Get phone number from website
